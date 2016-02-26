@@ -19,4 +19,22 @@ RSpec.feature 'User can create an account' do
     end
     expect(page).to have_content('Julian')
   end
+
+  context 'with an invalid username' do
+    scenario 'they see an error message on the register form' do
+      username = ''
+      password = 'password'
+
+      visit root_path
+      click_link 'Register'
+      fill_in 'Username', with: username
+      fill_in 'Password', with: password
+      click_button 'Register'
+
+      within('.error') do
+        expect(page).to have_content('Invalid field(s)')
+      end
+      expect(page).to_not have_content('Julian')
+    end
+  end
 end

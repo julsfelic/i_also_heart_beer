@@ -10,6 +10,9 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       flash[:success] = 'Welcome to I Heart Beer!'
       redirect_to @user
+    else
+      flash.now[:error] = 'Invalid field(s)'
+      render :new
     end
   end
 
